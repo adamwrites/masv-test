@@ -7,7 +7,11 @@ const prompts = require('prompts');
         message: 'Please enter a number followed by a string of letters. You may do this multiple times seperated by a space.'
     });
 
-    console.log(response.answer);
+    // making sure there is atleast one character
+    if(response.answer.length <= 1){
+        console.log("ERROR: You need at least one character")
+    }
+
     //split on space to handle multiple inputs at once
     arrayOfResponse = response.answer.split(" ");
     arrayOfResponse.forEach(
@@ -19,13 +23,14 @@ const prompts = require('prompts');
 function printAnswer(param) {
     var characters = param.split("");
     var number = characters[0];
+
     //remove the number
     characters.shift();
+
     characters.forEach(
         character => nextChar(character,number) ,
         process.stdout.write(`${" "}`),
     )
-    
 }
 
 //generate new letters based on initial number
