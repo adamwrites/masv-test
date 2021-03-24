@@ -11,8 +11,10 @@ const prompts = require('prompts');
     //split on space to handle multiple inputs at once
     arrayOfResponse = response.answer.split(" ");
     arrayOfResponse.forEach(
-        element => printAnswer(element));
-})();
+        element => printAnswer(element)),
+        process.stdout.write(`\n`);
+}
+)();
 
 function printAnswer(param) {
     var characters = param.split("");
@@ -20,9 +22,12 @@ function printAnswer(param) {
     //remove the number
     characters.shift();
     characters.forEach(
-        character => nextChar(character,number)  
+        character => nextChar(character,number) ,
+        process.stdout.write(`${" "}`),
     )
+    
 }
+
 //generate new letters based on initial number
 
 function nextChar(c="", num=1) {
@@ -33,5 +38,5 @@ function nextChar(c="", num=1) {
     else{
         var newLetter = String.fromCharCode(c.charCodeAt(0) + parseInt(num));
     }
-    process.stdout.write(`${newLetter}`);     
+    process.stdout.write(`${newLetter}`);
 }
