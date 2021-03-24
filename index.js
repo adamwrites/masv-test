@@ -8,6 +8,7 @@ const prompts = require('prompts');
     });
 
     console.log(response.answer);
+    //split on space to handle multiple inputs at once
     arrayOfResponse = response.answer.split(" ");
     arrayOfResponse.forEach(
         element => printAnswer(element));
@@ -18,13 +19,19 @@ function printAnswer(param) {
     var number = characters[0];
     //remove the number
     characters.shift();
-    console.log(characters);
     characters.forEach(
         character => nextChar(character,number)  
     )
 }
+//generate new letters based on initial number
 
 function nextChar(c="", num=1) {
-    var newLetter = String.fromCharCode(c.charCodeAt(0) + parseInt(num));
-    console.log(newLetter);
+    var ASCII = c.charCodeAt(0) + parseInt(num)
+    if (ASCII > 122) {
+        var newLetter = String.fromCharCode((c.charCodeAt(0) + parseInt(num)) % 122 + 96);
+    }
+    else{
+        var newLetter = String.fromCharCode(c.charCodeAt(0) + parseInt(num));
+    }
+    process.stdout.write(`${newLetter}`);     
 }
